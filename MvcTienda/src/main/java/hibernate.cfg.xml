@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <mapping class="com.luis.tienda.modelo.Envios"/>
+    <mapping class="com.luis.tienda.modelo.TiendaProducto"/>
+    <mapping class="com.luis.tienda.modelo.Etiqueta"/>
+    <mapping class="com.luis.tienda.modelo.TiendaCategoria"/>
+    <mapping class="com.luis.tienda.modelo.EnvioProducto"/>
+    <mapping class="com.luis.tienda.modelo.EnvioProductoId"/>
+  </session-factory>
+</hibernate-configuration>
