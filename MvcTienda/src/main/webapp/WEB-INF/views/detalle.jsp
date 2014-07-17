@@ -7,7 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-Que quieres hacer?
-<a href="listado.html">Ver productos</a>
+${producto.nombre }<br />
+${producto.precio }<br />
+${producto.existencias }<br />
+${producto.tiendaCategoria.nombre}
 </body>
 </html>

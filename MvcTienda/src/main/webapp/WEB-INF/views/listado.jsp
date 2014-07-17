@@ -14,6 +14,7 @@
 <tr>
 <td>${producto.nombre }</td>
 <td>${producto.precio }</td>
+<td><a href="detalle_${producto.idProducto}.html">Detalle</a></td>
 </tr>
 </c:forEach>
 
