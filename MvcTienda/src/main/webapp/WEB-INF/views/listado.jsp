@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+
 </head>
 <body>
 <table>
@@ -14,13 +15,33 @@
 <tr>
 <td>${producto.nombre }</td>
 <td>${producto.precio }</td>
-<td><a href="detalle_${producto.idProducto}.html">Detalle</a></td>
+<td><a href="detalle_${producto.idProducto}.html">Detalle</a>
+<a href="#" onclick="detalle(${producto.idProducto})">Detalle ajax</a>
+</td>
 </tr>
 </c:forEach>
 
 </table>
 
-AAAA
+<div id="divDetalle"></div>
+<script type="text/javascript" 
+	src='<c:url value="/resources/js/jquery.js"/>'></script>
 
+<script type="text/javascript">
+function detalle(id){
+var url="producto/"+id;
+$.get(url,function(res){
+		var resultado="<ul>";
+		resultado+="<li>"+res.nombre+"</li>";
+		resultado+="<li>"+res.precio+"</li>";
+		resultado+="<li>"+res.existencias+"</li>";
+		resultado+="<li>"+res.tiendaCategoria.nombre+"</li>";
+		resultado+="</ul>";
+		$("#divDetalle").html(resultado);
+	});
+}
+
+
+</script>
 </body>
 </html>
