@@ -10,13 +10,17 @@
 
 </head>
 <body>
-<table>
+Buscar:<input type="text" id="txtBuscar" /> 
+<input type="button" value="Buscar" onclick="buscar()"/>
+<table id="tblDatos">
 <c:forEach items="${productos }" var="producto">
 <tr>
 <td>${producto.nombre }</td>
 <td>${producto.precio }</td>
 <td><a href="detalle_${producto.idProducto}.html">Detalle</a>
 <a href="#" onclick="detalle(${producto.idProducto})">Detalle ajax</a>
+<a href="#" onclick="borrar(${producto.idProducto})">Borrar</a>
+
 </td>
 </tr>
 </c:forEach>
@@ -28,9 +32,78 @@
 	src='<c:url value="/resources/js/jquery.js"/>'></script>
 
 <script type="text/javascript">
+function borrar(id){
+
+	var datos={idProducto:id};
+
+	var datosPasar=JSON.stringify(datos);
+
+	$.ajax(
+			"producto",{
+				data:datosPasar,
+				method: "DELETE",
+				contentType: "application/json",
+				success: function(res){
+					alert("Empleado borrado correctamente");
+					$("#txtBuscar").text("");
+					buscar();
+
+					},
+				error: function(res){
+					alert(JSON.stringify(res));
+					}
+
+
+				}
+			);
+
+
+
+	
+}
+
+
+function buscar(){
+	var tx=$("#txtBuscar").val();
+	if(tx=="")
+		tx="NoBuscoNada";
+	var url="producto/buscar/"+tx;	
+
+	$.get(url,function(res){
+
+		var tabla=$("#tblDatos");
+
+		$("#tblDatos tr").each(function(){
+				$(this).remove();
+
+			});
+
+
+
+		for(var i=0;i<res.length;i++){
+			var h="<tr>";
+			h+="<td>"+res[i].nombre+"</td>";
+			h+="<td>"+res[i].precio+"</td>";
+			h+="<td><a href='detalle.html?id="+
+					res[i].idProducto+"'>Detalle</a> ";
+			h+="<a href='#' onclick='detalle("+
+				res[i].idProducto+")'>Detalle ajax</a> ";
+			h+="<a href='#' onclick='borrar("+
+				res[i].idProducto+")'>Borrar</a></td>";
+			h+="</tr>";	
+			tabla.append(h);
+			}
+
+
+
+		
+
+		});
+	
+}
 function detalle(id){
-var url="producto/"+id;
-$.get(url,function(res){
+	var url="producto/"+id;
+	$.get(url,function(res){
 		var resultado="<ul>";
 		resultado+="<li>"+res.nombre+"</li>";
 		resultado+="<li>"+res.precio+"</li>";
